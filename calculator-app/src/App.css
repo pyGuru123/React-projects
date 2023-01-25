@@ -1,0 +1,33 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  background: rgba(9, 9, 18, 0.8);
+}
+
+.main-div {
+  top: 50%;
+  left: 50%;
+  position: absolute;
+  transform: translate(-50%, -50%);
+
+  background : rgba(9, 9, 9, 0.5);
+  border: 1px solid red;
+  padding: 30px;
+  border-radius: 20px;
+
+}
+
+.box {
+  background : rgba(9, 9, 9, 0.5);
+}
+
+input {
+  font-size: 20px;
+  padding: 10px;
+  border-radius: 5px;
+  display: block;
+  margin-bottom: 20px;
+  outline: none;
+  color: white;
+}
