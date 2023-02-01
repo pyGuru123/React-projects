@@ -1,5 +1,8 @@
 import React, {useState, useEffect} from 'react';
 import './App.css';
+import 'codemirror/addon/edit/closetag';
+import 'codemirror/addon/edit/closebrackets';
+
 import Button from './components/Button';
 import Editor from './components/Editor';
 
@@ -32,7 +35,7 @@ function App() {
           </html>
         `
       )
-    }, 20);
+    }, 250);
     return () => clearTimeout(timeOut)
   }, [html, css, js])
 
@@ -51,6 +54,7 @@ function App() {
           openedEditor === 'html' ? (
               <Editor 
                 language="xml"
+                displayName="HTML"
                 value={html}
                 setEditorState={setHtml}
                 />
@@ -58,6 +62,7 @@ function App() {
           openedEditor === 'css' ? (
               <Editor 
                 language = "css"
+                displayName="CSS"
                 value = {css}
                 setEditorState={setCss}  
               />
@@ -65,6 +70,7 @@ function App() {
           (
               <Editor 
                 language = "javascript"
+                displayName="JS"
                 value = {js}
                 setEditorState = {setJs}
               />
@@ -74,6 +80,8 @@ function App() {
 
       <div>
         <iframe
+          id="my_iframe"
+          srcDoc={srcDoc}
           title="output"
           sandbox="allow-scripts"
           frameBorder = "1"
