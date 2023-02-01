@@ -1,23 +1,40 @@
-import React, {useState} from 'react';
-import logo from './logo.svg';
+import React, {useState, useEffect} from 'react';
 import './App.css';
-
 import Button from './components/Button';
 import Editor from './components/Editor';
 
 function App() {
   const [openedEditor, setOpenedEditor] = useState('html');
+  const [html, setHtml] = useState('');
+  const [css, setCss] = useState('');
+  const [js, setJs] = useState('');
+  const [srcDoc, setSrcDoc] = useState('');
 
   const onTabClick = (editorName) => {
     setOpenedEditor(editorName);
-    console.log(openedEditor);
   };
 
   const pStyle = {
     background : "#333",
     color: "#fff",
     padding: "4px",
+    textAlign: "center",
   }
+
+  useEffect(() => {
+    const timeOut = setTimeout(() => {
+      setSrcDoc(
+        `
+          <html>
+            <body>${html}</body>
+            <style>${css}</style>
+            <script>${js}</script>
+          </html>
+        `
+      )
+    }, 20);
+    return () => clearTimeout(timeOut)
+  }, [html, css, js])
 
   return (
     <div className="App">
@@ -31,10 +48,38 @@ function App() {
 
       <div className="editor-container">
         {
-          openedEditor === 'html' ? (<p>HTML</p>) :
-          openedEditor === 'css' ? (<p>CSS</p>) : 
-          (<p>JS</p>)
+          openedEditor === 'html' ? (
+              <Editor 
+                language="xml"
+                value={html}
+                setEditorState={setHtml}
+                />
+          ) :
+          openedEditor === 'css' ? (
+              <Editor 
+                language = "css"
+                value = {css}
+                setEditorState={setCss}  
+              />
+          ) : 
+          (
+              <Editor 
+                language = "javascript"
+                value = {js}
+                setEditorState = {setJs}
+              />
+          )
         }
+      </div>
+
+      <div>
+        <iframe
+          title="output"
+          sandbox="allow-scripts"
+          frameBorder = "1"
+          width="100%"
+          height="100%"
+        />
       </div>
     </div>
   );
